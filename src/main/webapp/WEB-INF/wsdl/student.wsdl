@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://example.com/students"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             name="StudentService"
+             targetNamespace="http://example.com/students">
+
+    <message name="StudentRequest">
+        <part name="parameters" type="xsd:string"/>
+    </message>
+
+    <message name="StudentResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+
+    <portType name="StudentPortType">
+        <operation name="getStudent">
+            <input message="tns:StudentRequest"/>
+            <output message="tns:StudentResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="StudentBinding" type="tns:StudentPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getStudent">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="StudentService">
+        <port name="StudentPort" binding="tns:StudentBinding">
+            <soap:address location="http://localhost:8080/ws"/>
+        </port>
+    </service>
+
+</definitions>
